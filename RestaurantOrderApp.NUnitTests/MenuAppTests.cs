@@ -18,6 +18,7 @@ namespace RestaurantOrderApp.NUnitTests
         private readonly IMediatorHandler _bus;
         private readonly INotificationHandler<DomainNotification> _notifications;
         private readonly IMenuRepository _menuRepository;
+        private readonly IMenuApp _menuApp;
 
         public MenuAppTests()
         {
@@ -25,6 +26,7 @@ namespace RestaurantOrderApp.NUnitTests
             _bus = Substitute.For<IMediatorHandler>();
             _notifications = Substitute.For<INotificationHandler<DomainNotification>>();
             _menuRepository = Substitute.For<IMenuRepository>();
+            _menuApp = new MenuApp(_uow, _bus, _notifications, _menuRepository);
 
             var dishesMorningList = new List<DishesMenu>
             {
@@ -53,26 +55,25 @@ namespace RestaurantOrderApp.NUnitTests
         [Test]
         public void RequestInput_Morning_Entree_Side_And_Three_Coffees()
         {
-            MenuApp menuApp = new MenuApp(_uow, _bus, _notifications, _menuRepository);
-            string output = menuApp.GetMenuOptions("morning, 1, 2, 3, 3, 3");
-            Console.WriteLine(output);
-            Assert.That(output, Is.EqualTo("eggs, toast, coffee(x3)"));
+            var result = "eggs, toast, coffee(x3)";
+            string output = _menuApp.GetMenuOptions("morning, 1, 2, 3, 3, 3");
+            Assert.That(output, Is.EqualTo(result));
         }
 
         [Test]
         public void Request_Invalid_Input()
         {
-            MenuApp menuApp = new MenuApp(_uow, _bus, _notifications, _menuRepository);
-            string output = menuApp.GetMenuOptions("1, 2, 3");
-            Assert.That(output, Is.EqualTo(string.Empty));
+            var result = string.Empty;
+            string output = _menuApp.GetMenuOptions("1, 2, 3");
+            Assert.That(output, Is.EqualTo(result));
         }
 
         [Test]
         public void Request_Morning_Desert()
         {
-            MenuApp menuApp = new MenuApp(_uow, _bus, _notifications, _menuRepository);
-            string output = menuApp.GetMenuOptions("morning, 1, 4");
-            Assert.That(output, Is.EqualTo("eggs, error"));
+            var result = "eggs, error";
+            string output = _menuApp.GetMenuOptions("morning, 1, 4");
+            Assert.That(output, Is.EqualTo(result));
         }
     }
 }

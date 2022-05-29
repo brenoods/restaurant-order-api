@@ -22,11 +22,15 @@ namespace RestaurantOrderApp.API.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns the menu plates
         /// </summary>
-        /// <param name="menuRequest"></param>
+        /// <param name="menuRequest">Ex.: morning,1,2,3 or night,1,2,3</param>
         /// <returns></returns>
+        /// <response code="200">Returns the menu plates for the selected options for morning or night</response>
+        /// <response code="400">Returns the validations errors for the menuRequest</response>
         [HttpGet("GetMenuOptions")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public IActionResult Get(string menuRequest) => 
              Response(_menuApp.GetMenuOptions(menuRequest));
     }

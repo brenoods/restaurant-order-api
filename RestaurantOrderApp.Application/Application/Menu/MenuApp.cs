@@ -51,30 +51,34 @@ namespace RestaurantOrderApp.Application.Application.Menu
                 ETimeOfDay? timeOfDay = GetTimeOfDayEnumByString(timeOfDayString);
                 if (timeOfDay != null)
                 {
-                    List<string> dishesOptionsSelected = new();
-                    var dishesByTimeOfDay = _menuRepository.GetDishesByTimeOfDay(timeOfDay.Value).ToList();
-
-                    foreach (EDishType dishOption in dishesSelectedOptions)
+                    if (dishesSelectedOptions.Count > 0)
                     {
-                        DishesMenu? dish = dishesByTimeOfDay.FirstOrDefault(dishes => dishes.DishType == dishOption);
-                        if (dish == null || dishesOptionsSelected.Contains(dish.PlateDescription) && !dish.PermitMultiple)
-                        {
-                            dishesOptionsSelected.Add("error");
-                            break;
-                        }
-                        else
-                            dishesOptionsSelected.Add(dish.PlateDescription);
+                        List<string> dishesOptionsSelected = new();
+                        var dishesByTimeOfDay = _menuRepository.GetDishesByTimeOfDay(timeOfDay.Value).ToList();
 
+                        foreach (EDishType dishOption in dishesSelectedOptions)
+                        {
+                            DishesMenu? dish = dishesByTimeOfDay.FirstOrDefault(dishes => dishes.DishType == dishOption);
+                            if (dish == null || dishesOptionsSelected.Contains(dish.PlateDescription) && !dish.PermitMultiple)
+                            {
+                                dishesOptionsSelected.Add("error");
+                                break;
+                            }
+                            else
+                                dishesOptionsSelected.Add(dish.PlateDescription);
+
+                        }
+                        var dishesOptionsSelectedGroup = dishesOptionsSelected.
+                                                            GroupBy(group => group)
+                                                            .Select(dishesGrouped => $"{dishesGrouped.Key}{(dishesGrouped.Count() > 1 ? $"(x{dishesGrouped.Count()})" : "")}");
+                        return $"{string.Join(", ", dishesOptionsSelectedGroup.Select(dishes => dishes))}";
                     }
-                    var dishesOptionsSelectedGroup = dishesOptionsSelected.
-                                                        GroupBy(group => group)
-                                                        .Select(dishesGrouped => $"{dishesGrouped.Key}{(dishesGrouped.Count() > 1 ? $"(x{dishesGrouped.Count()})" : "")}");
-                    return $"{string.Join(", ", dishesOptionsSelectedGroup.Select(dishes => dishes))}";
+                        _bus.RaiseEvent(new DomainNotification("Not Found", "Select at least one Dish Type"));
                 }
                 else
                     _bus.RaiseEvent(new DomainNotification("Not Found", "Time of Day not found"));
             }
-            
+
             return string.Empty;
         }
     }
