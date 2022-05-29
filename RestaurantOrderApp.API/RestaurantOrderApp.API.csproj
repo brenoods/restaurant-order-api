@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantOrderApp.Infra.Data\RestaurantOrderApp.Infra.Data.csproj" />
+    <ProjectReference Include="..\RestaurantOrderApp.Infra.DependencyInjection\RestaurantOrderApp.Infra.DependencyInjection.csproj" />
+  </ItemGroup>
+
+</Project>

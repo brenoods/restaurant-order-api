@@ -1,0 +1,57 @@
+# Don't track content of these folders
+node_modules/
+
+# Compiled source #
+###################
+*.com
+*.class
+
+*.exe
+*.o
+*.so
+*.so
+*.pdb
+
+# Visual Studio 2015 cache/options directory
+.vs/
+/.vs/SPLICE-ITS/v15/Server/sqlite3
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!*.[Cc]ache/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+/obj/*
+
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+packages/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.DotSettings.user

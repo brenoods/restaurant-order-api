@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantOrderApp.Application\RestaurantOrderApp.Application.csproj" />
+    <ProjectReference Include="..\RestaurantOrderApp.Domain.Core\RestaurantOrderApp.Domain.Core.csproj" />
+    <ProjectReference Include="..\RestaurantOrderApp.Domain\RestaurantOrderApp.Domain.csproj" />
+    <ProjectReference Include="..\RestaurantOrderApp.Infra.Bus\RestaurantOrderApp.Infra.Bus.csproj" />
+    <ProjectReference Include="..\RestaurantOrderApp.Infra.Data\RestaurantOrderApp.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
