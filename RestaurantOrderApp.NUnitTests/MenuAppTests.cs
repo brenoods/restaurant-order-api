@@ -12,14 +12,14 @@ using static RestaurantOrderApp.Domain.Enums.Menu.TimeOfDay;
 
 namespace RestaurantOrderApp.NUnitTests
 {
-    public class Tests
+    public class MenuAppTests
     {
         private readonly IUnitOfWork _uow;
         private readonly IMediatorHandler _bus;
         private readonly INotificationHandler<DomainNotification> _notifications;
         private readonly IMenuRepository _menuRepository;
 
-        public Tests()
+        public MenuAppTests()
         {
             _uow = Substitute.For<IUnitOfWork>();
             _bus = Substitute.For<IMediatorHandler>();
