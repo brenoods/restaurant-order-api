@@ -27,6 +27,8 @@ builder.Services.AddSwaggerGen(opt =>
 
 builder.Services.AddMediatR(typeof(Program));
 
+builder.Services.AddCors();
+
 DependencyInjectionBootstrapper.RegisterServices(builder.Services);
 
 var app = builder.Build();
@@ -38,7 +40,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
